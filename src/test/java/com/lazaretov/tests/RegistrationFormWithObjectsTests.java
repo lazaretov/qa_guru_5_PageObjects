@@ -1,6 +1,7 @@
 package com.lazaretov.tests;
 
 import com.codeborne.selenide.Configuration;
+import com.lazaretov.pages.RegistrationFormPage;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +11,7 @@ import static com.codeborne.selenide.Selenide.*;
 
 
 public class RegistrationFormWithObjectsTests {
-
+    RegistrationFormPage registrationFormPage = new RegistrationFormPage();
     @BeforeAll
     static void setUp() {
         Configuration.baseUrl = "https://demoqa.com";
@@ -31,12 +32,12 @@ public class RegistrationFormWithObjectsTests {
         String hobby = "Reading";
         String gender = "Female";
 
-        open("/automation-practice-form");
+        registrationFormPage.openPage()
+                .setFirstName(firstName)
+                .setLastName(lastName)
+                .setEmail(email)
+                .setGender(gender);
 
-        $("#firstName").setValue(firstName);
-        $("#lastName").setValue(lastName);
-        $("#userEmail").setValue(email);
-        $("#genterWrapper").$(byText(gender)).click();
         $("#userNumber").setValue(phone);
         $("#dateOfBirthInput").click();
         $(".react-datepicker__month-select").selectOption("September");
@@ -49,8 +50,6 @@ public class RegistrationFormWithObjectsTests {
         $("#react-select-3-input").setValue(state).pressEnter();
         $("#react-select-4-input").setValue(city).pressEnter();
 
-        executeJavaScript("$('#fixedban').remove()");
-        executeJavaScript("$('footer').remove()");
 
         $("#submit").click();
 
