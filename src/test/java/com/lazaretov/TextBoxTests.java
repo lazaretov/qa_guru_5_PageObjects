@@ -32,8 +32,6 @@ public class TextBoxTests {
         String gender = "Female";
 
         open("/automation-practice-form");
-        executeJavaScript("$('#fixedban').remove()");
-        executeJavaScript("$('footer').remove()");
 
         $("#firstName").setValue(firstName);
         $("#lastName").setValue(lastName);
@@ -41,15 +39,19 @@ public class TextBoxTests {
         $("#genterWrapper").$(byText(gender)).click();
         $("#userNumber").setValue(phone);
         $("#dateOfBirthInput").click();
-        $(".react-datepicker__month-select").selectOptionByValue(String.valueOf(5));
+        $(".react-datepicker__month-select").selectOption("September");
         $(".react-datepicker__year-select").selectOption("1991");
-        $(".react-datepicker__day--017").click();
+        $(".react-datepicker__day--028:not(.react-datepicker__day--outside-month").click();
         $("#subjectsInput").setValue(subject).pressEnter();
         $("#hobbiesWrapper").$(byText(hobby)).click();
         $("#uploadPicture").uploadFromClasspath("pic.JPG");
         $("#currentAddress").setValue(addres);
         $("#react-select-3-input").setValue(state).pressEnter();
         $("#react-select-4-input").setValue(city).pressEnter();
+
+        executeJavaScript("$('#fixedban').remove()");
+        executeJavaScript("$('footer').remove()");
+
         $("#submit").click();
 
         $(".modal-header").shouldHave(text("Thanks for submitting the form"));
@@ -57,7 +59,7 @@ public class TextBoxTests {
                 text(email),
                 text(gender),
                 text(phone),
-                text("17 June,1991"),
+                text("28 September,1991"),
                 text(subject),
                 text(hobby),
                 text(addres),
